@@ -11,7 +11,8 @@ PERN stands for PostgreSQL, Express, React and Node.js.
 - React is optional, but can be considered a stretch challenge
 - The web server and PostgreSQL must start automatically when the OS starts
 
-**STEP 1**: Install Postgresql
+**PART 1**
+**Step 1**: Install Postgresql
 Run the command lines for proper installation of the program
 ```
 dnf install postgresql-server
@@ -24,7 +25,7 @@ systmectl enable postgresql
 ```
 ![alt text](enable.png)
 
-Step 3: Initialize the Database
+**Step 3**: Initialize the Database
 
 ```
 postgresql-setup --initdb --unit postgresql
@@ -32,77 +33,46 @@ postgresql-setup --initdb --unit postgresql
 
 ![alt text](unitdata.png)
 
-Step 4: Reboot System or Start PostgreSQL Manually Using:
+**Step 4**: Reboot System or Start PostgreSQL Manually Using:
 
 ```
 systemctl start postgresql
 ```
-Step 5: Create a PostgreSQL User and Database
-
-```
-sudo -u postgres psql
-```
-After running the command above, you are in the postgresql command prompt. You can create a user and database from here with these commands:
-
-```
-CREATE USER <username> WITH PASSWORD '<password>';
-CREATE DATABASE <databaseName> OWNER <username>;
-```
-Remember your username, password and databaseName for your database, they are important and will be used later in this turtorial.
-
-Use "\du" to list all roles and "\list" to list all databases to make sure that your database and user were added.
-
-```
-\du
-\list
-```
-Step 6: Exit the Terminal
-
-```
-\q
-```
-![alt text](databases.png)
-
-You can now access you user's database at any time with this command:
-
-```
-psql <databaseName>
-```
+**PART 2**
 **Node.js Installation**
 
-Step 1: Install Node.js Using dnf and Enter "Y" when Prompted
+**Step 1**: Install Node.js Using dnf and Enter "Y" when Prompted
 
 ```
 dnf install nodejs
 ```
 ![alt text](nodejs.png)
 
-Express Installation/Web Server Setup
+**Express Installation/Web Server Setup**
 *Follow these insctructions in the command line of your Fedora Linux machine to install and set up a basic web server using express:*
 
-Step 1: Create and Move Into a Directory for your project
-
+**Step 2**: Create and Move Into a Directory for your project
 
 ```
 mkdir <projectname>
 cd <projectname>
 ```
 
-Step 2: Create a package.json file.
+**Step 3:** Create a package.json file.
 
 ```
 npm init -y
 ```
 ![alt text](webserver.png)
 
-Step 3: Install Express
+**Step 4:** Install Express
 
 ```
 npm install express
 ```
 ![alt text](express.png)
 
-Step 4: Create a js file and add code. In this turtorial, I will be using vim, but use whatever text editing software you are comfortable with.
+**Step 5**: Create a js file and add code. In this turtorial, I will be using vim, but use whatever text editing software you are comfortable with.
 
 ```
 vi app.js
@@ -110,19 +80,21 @@ vi app.js
 You will use the express module and also the body-parser module. You also want to set your port variable so that you know where to look for your web server. Now copy the code below into your app.js file.
 
 ```
-const express = require('express');
-const bodyParser = require('body-parser');
-const port = 3000;
+const express = require('express')
+const app = express()
+const port = 3000
 
-const app = express();
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
 ```
 
-Step 7: Open your browser and in the search bar type "http://localhost:3000" and hit enter. This is what you should see in you browser:
+**Step 6**: Open your browser and in the search bar type "http://localhost:3000" and hit enter. This is what you should see in you browser:
 
 ![alt text](helloworld.png)
+
+You have Now Completed the Installation.
